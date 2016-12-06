@@ -24,8 +24,8 @@
         "object-curly-spacing": 0,
         "global-require": 0,
         "new-cap": 0,
-        'no-param-reassign': 0,
-        'no-unused-expressions': ["error", { "allowShortCircuit": true, "allowTernary": true }],
-        'no-lonely-if': 2
+        "no-param-reassign": 0,
+        "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+        "no-lonely-if": 2
     }
 }

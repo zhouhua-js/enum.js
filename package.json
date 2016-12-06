@@ -21,6 +21,7 @@
     "url": "https://github.com/zhouhua-js/enum.js/issues"
   },
   "homepage": "https://github.com/zhouhua-js/enum.js#readme",
+  "tonicExampleFilename": "example.js",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
