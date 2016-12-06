@@ -15,5 +15,6 @@ npm install --save easy-enum.js
 
 ## Usage
 
+This library is easy to use.
 
-
+[Try it](https://runkit.com/npm/easy-enum.js).
