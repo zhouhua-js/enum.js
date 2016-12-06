@@ -15,4 +15,5 @@ npm install --save easy-enum.js
 
 ## Usage
 
-// todo
+
+

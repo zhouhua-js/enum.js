@@ -112,7 +112,6 @@ export default class Enum {
         if (res.length) {
             return res[0];
         }
-        return null;
     }
 
     getByValue(value) {
@@ -120,7 +119,6 @@ export default class Enum {
         if (res.length) {
             return res[0];
         }
-        return null;
     }
 
     getNameByValue(value) {
@@ -128,7 +126,6 @@ export default class Enum {
         if (res) {
             return res.name;
         }
-        return null;
     }
 
     getTextByValue(value) {
@@ -136,7 +133,6 @@ export default class Enum {
         if (res) {
             return res.text;
         }
-        return null;
     }
 
     getTextByName(name) {
@@ -144,7 +140,6 @@ export default class Enum {
         if (res) {
             return res.text;
         }
-        return null;
     }
 
     /**
@@ -154,8 +149,11 @@ export default class Enum {
      * @return {Array}
      */
     toArray(...names) {
+        if (names.length === 1 && isArray(names[0])) {
+            names = names[0];
+        }
         if (names.length) {
-            return names.map(name => ({...this.getByName(name)}));
+            return names.map(name => ({...this.getByName(name)})).filter(item => item && ('value' in item));
         }
         return this.store.map(item => ({...item}));
     }
