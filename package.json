@@ -1,6 +1,6 @@
 {
   "name": "easy-enum.js",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A simple implementation of enumerated types for javascript.",
   "main": "./dist/enum.js",
   "scripts": {
