@@ -2,8 +2,8 @@
  * Created by zhouhua on 2016/12/6.
  */
 /* eslint-disable */
-const expect = require('chai').expect;
-const Enum = require('../dist/enum.js').default;
+import {expect} from 'chai';
+import Enum from '../src/enum.js';
 
 let enums;
 let fake;
@@ -27,9 +27,23 @@ describe('Constructor', function () {
         expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
+    it('construct from nested array', function () {
+        enums = new Enum([[
+            {name: 'RED', value: 'red', text: 'Red'},
+            {name: 'BLUE', value: 'blue', text: 'Blue'},
+            {name: 'GREEN', value: 'green', text: 'Green'}
+        ]]);
+        expect(enums.RED).to.equal('red');
+        expect(enums).to.be.forzen;
+    });
     it('construct from values', function () {
         enums = new Enum('RED', 'GREEN', 'BLUE');
         expect(enums.RED).to.equal('RED');
+        expect(enums).to.be.forzen;
+    });
+    it('construct from single value(Object)', function () {
+        enums = new Enum({name: 'RED', value: 'red', text: 'Red'});
+        expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
     it('construct from value array', function () {
@@ -37,10 +51,15 @@ describe('Constructor', function () {
         expect(enums.RED).to.equal('RED');
         expect(enums).to.be.forzen;
     });
+    it('construct from key-value', function () {
+        enums = new Enum({RED: 'red', GREEN: 'green', BLUE: 'blue'});
+        expect(enums.RED).to.equal('red');
+        expect(enums).to.be.forzen;
+    });
     it('construct with chain apis', function () {
         enums = new Enum();
         expect(enums).to.not.be.forzen;
-        enums.add('RED').add('GREEN').add('BLUE').end();
+        enums.add('RED').add().add(1).add({test: 'test'}).add('GREEN').add('BLUE').end();
         expect(enums.RED).to.equal('RED');
         expect(enums).to.be.forzen;
     });
@@ -139,11 +158,11 @@ describe('Making arrays', function () {
             {name: 'GREEN', value: 'green', text: 'Green'}
         );
     });
-    it('export all members', function(){
+    it('export all members', function () {
         let arr = enums.toArray();
         expect(arr.length).to.equal(3);
     });
-    it('export particular members', function(){
+    it('export particular members', function () {
         let arr = enums.toArray('RED');
         expect(arr.length).to.equal(1);
         expect(arr[0].text).to.equal('Red');
@@ -151,7 +170,7 @@ describe('Making arrays', function () {
         expect(arr.length).to.equal(1);
         expect(arr[0].text).to.equal('Red');
     });
-    it('export particular members with invalid keys', function(){
+    it('export particular members with invalid keys', function () {
         let arr = enums.toArray('RED', 'RED1');
         expect(arr.length).to.equal(1);
         expect(arr[0].text).to.equal('Red');
@@ -170,26 +189,47 @@ describe('Secure', function () {
         );
         fake = 'fake';
     });
-    it('touch enum object', function(){
-        enums.RED = fake;
-        enums.fake = fake;
-        expect(enums.RED).to.equal('red');
-        expect(enums.fake).to.be.undefined;
+    it('touch enum object', function () {
+        try {
+            enums.RED = fake;
+            enums.fake = fake;
+        }
+        catch (e) {
+            console.log('should throw an error');
+        }
+        finally {
+            expect(enums.RED).to.equal('red');
+            expect(enums.fake).to.be.undefined;
+        }
     });
-    it('touch the results from GET apis', function(){
+    it('touch the results from GET apis', function () {
         let item = enums.get('RED');
-        item.value = fake;
-        expect(enums.get('RED').value).to.equal('red');
+        try {
+            item.value = fake;
+        }
+        catch (e) {
+            console.log('should throw an error');
+        }
+        finally {
+            expect(enums.get('RED').value).to.equal('red');
+        }
     });
-    it('touch private properties', function(){
-        enums.store.forEach(item => item.value = fake);
-        expect(enums.RED).to.equal('red');
-        expect(function(){
-            enums.store.push({name: 'PINK', value: 'pink', text:'Pink'});
-        }).to.throw(Error);
-        expect(function(){
-            enums.store.pop();
-        }).to.throw(Error);
+    it('touch private properties', function () {
+        try {
+            enums.store.forEach(item => item.value = fake);
+        }
+        catch (e) {
+            console.log('should throw an error');
+        }
+        finally {
+            expect(enums.RED).to.equal('red');
+            expect(function () {
+                enums.store.push({name: 'PINK', value: 'pink', text: 'Pink'});
+            }).to.throw(Error);
+            expect(function () {
+                enums.store.pop();
+            }).to.throw(Error);
+        }
     });
 });
 

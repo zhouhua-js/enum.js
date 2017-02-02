@@ -52,15 +52,20 @@ export default class Enum {
      * @return {Enum} this.
      */
     add(item) {
-        if (!item) {
+        let innerItem = {};
+        if (isArray(item)) {
+            item.forEach(subItem => this.add(subItem));
             return this;
         }
-        let innerItem = {};
-        if (isString(item)) {
+        else if (isString(item)) {
             innerItem = {value: item};
         }
-        else {
+        else if (isObject(item) && item.hasOwnProperty('value')) {
             innerItem = {...item};
+        }
+        else {
+            console.warn('Single value should be wrapped in an Object.');
+            return this;
         }
         innerItem.name = innerItem.name || innerItem.value;
         innerItem.text = innerItem.text || innerItem.name;
