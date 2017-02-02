@@ -1,7 +1,6 @@
 language: node_js
 node_js:
   - "7.2.0"
-
 install:
   - npm install
 
@@ -9,3 +8,5 @@ script:
   - npm run build
   - npm test
   - npm run coverage
+  - ./node_modules/coveralls/bin/codecov
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
