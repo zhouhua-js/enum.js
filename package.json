@@ -7,7 +7,7 @@
     "build": "mkdir -p dist & ./node_modules/.bin/babel src -d dist -s",
     "prepublish": "npm run build",
     "test": "mocha --require babel-register",
-    "coverage": "istanbul cover _mocha --report lcovonly -- --require babel-register -R spec"
+    "coverage": "istanbul cover _mocha --report lcov -- --require babel-register -R spec"
   },
   "repository": {
     "type": "git",
