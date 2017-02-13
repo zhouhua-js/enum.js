@@ -52,7 +52,7 @@ export default class Enum {
      * @return {Enum} this.
      */
     add(item) {
-        let innerItem = {};
+        let innerItem;
         if (isArray(item)) {
             item.forEach(subItem => this.add(subItem));
             return this;
