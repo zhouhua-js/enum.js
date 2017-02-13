@@ -1,11 +1,16 @@
 language: node_js
 node_js:
-  - "7.2.0"
+- 7.2.0
 install:
-  - npm install
-
+- npm install
+dist: trusty
+addons:
+  sonarqube:
+    token:
+      secure: "EuZB8MLmmjCx2rP0Gpif+DdEVX0W8okLdtCwExD8Ysn1pagIclSSV9HN+CVlMf4rtuwy8OAy98cAPGPMlTxQ3wQL2CUGao4GhdNE3hMMPX43C7dRykP5tQEUA5THz+blXG2UdQpyltolIiwJpIAaek/z2/fuUTAyEeOm3jEDAKCNg9jU2m8ae9JBGV/w5vJr3aH8WYDw5MwBFSbJsgLz8+u8CXNB2YSeobT6qwf/4dxKUJAQIaSmaFhinrXsB33/DtrVQhs4iMmfrs7Z+Vv459waCUTXaTnnyO6oYdpvRUtTlrg9R/twF4L5SA1eDlakQt9LrspHv66v9xebRsXkZbjmBws77NjFC/5QNc21EhZKiJmkfSoL6s1neO8RQPSXZQHO6GmnCiZIRoTIZ0dCIHfX0wdHI1RDqwORP4ysm8YuKoGPUoEAkDj1kdhrRazo6PdTAJFQdNkj+bmaCzNKwmcTRccfSWGTFnhWfwHSh3/hpiC31HUZNQVAkny+rjz6X1kPJMu9MwC0F1TnaMJuXvaNSt9KeMJQEAQBu64vlqaFK0wVEKaOYhezsiZYR5mycSNbD1DMP2ESjVRRpihGT1rbay2+vb2B10r9o+O6jmPdjRdZxGEWpvtW6tNXoYqwaKytKujEiqfVxL/uApoYT3ukPshZ772TAICydJcKjFY="
 script:
-  - npm run build
-  - npm test
-  - npm run coverage
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+- npm run build
+- npm test
+- npm run coverage
+- sonar-scanner
+- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
