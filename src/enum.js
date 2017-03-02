@@ -1,8 +1,9 @@
 /**
  * Created by zhouhua on 2016/11/28.
  */
-
+/* eslint-disable valid-typeof */
 const isType = (type, value) => typeof value === type;
+/* eslint-enable */
 const isString = value => isType('string', value);
 const isObject = value => isType('object', value);
 const isArray = value => Array.isArray(value);
@@ -23,22 +24,26 @@ export default class Enum {
      * @return {Enum} An Enum object
      */
     constructor(...items) {
+        let altItems = items;
         Object.defineProperty(this, 'store', {
             value: []
         });
         Object.defineProperty(this, 'length', {
             get: () => this.store.length
         });
-        if (items.length === 1) {
+        if (altItems.length === 1) {
             if (isArray(items[0])) {
-                items = items[0];
+                [altItems] = altItems;
             }
-            else if (isObject(items[0]) && !items[0].hasOwnProperty('value')) {
-                items = Object.keys(items[0]).map(key => ({name: key, value: items[0][key]}));
+            else if (isObject(altItems[0]) && !Object.prototype.hasOwnProperty.call(altItems[0], 'value')) {
+                altItems = Object.keys(altItems[0]).map(key => ({
+                    name: key,
+                    value: altItems[0][key]
+                }));
             }
         }
-        if (items.length) {
-            items.forEach(item => this.add(item));
+        if (altItems.length) {
+            altItems.forEach(item => this.add(item));
             return this.end();
         }
         return this;
@@ -58,10 +63,10 @@ export default class Enum {
             return this;
         }
         else if (isString(item)) {
-            innerItem = {value: item};
+            innerItem = { value: item };
         }
-        else if (isObject(item) && item.hasOwnProperty('value')) {
-            innerItem = {...item};
+        else if (isObject(item) && Object.prototype.hasOwnProperty.call(item, 'value')) {
+            innerItem = { ...item };
         }
         else {
             console.warn('Single value should be wrapped in an Object.');
@@ -117,6 +122,7 @@ export default class Enum {
         if (res.length) {
             return res[0];
         }
+        return undefined;
     }
 
     getByValue(value) {
@@ -124,6 +130,7 @@ export default class Enum {
         if (res.length) {
             return res[0];
         }
+        return undefined;
     }
 
     getNameByValue(value) {
@@ -131,6 +138,7 @@ export default class Enum {
         if (res) {
             return res.name;
         }
+        return undefined;
     }
 
     getTextByValue(value) {
@@ -138,6 +146,7 @@ export default class Enum {
         if (res) {
             return res.text;
         }
+        return undefined;
     }
 
     getTextByName(name) {
@@ -145,6 +154,7 @@ export default class Enum {
         if (res) {
             return res.text;
         }
+        return undefined;
     }
 
     /**
@@ -154,13 +164,14 @@ export default class Enum {
      * @return {Array}
      */
     toArray(...names) {
-        if (names.length === 1 && isArray(names[0])) {
-            names = names[0];
+        let altNames = names;
+        if (altNames.length === 1 && isArray(altNames[0])) {
+            [altNames] = altNames;
         }
-        if (names.length) {
-            return names.map(name => ({...this.getByName(name)})).filter(item => item && ('value' in item));
+        if (altNames.length) {
+            return altNames.map(name => ({ ...this.getByName(name) })).filter(item => item && ('value' in item));
         }
-        return this.store.map(item => ({...item}));
+        return this.store.map(item => ({ ...item }));
     }
 
     /**
@@ -169,7 +180,7 @@ export default class Enum {
      * @return {Array} collection of keys
      */
     keys() {
-        return this.store.map(({name}) => name);
+        return this.store.map(({ name }) => name);
     }
 
     /**
@@ -179,7 +190,7 @@ export default class Enum {
      * @return {Bool}
      */
     hasKey(key) {
-        return this.store.some(({name}) => name === key);
+        return this.store.some(({ name }) => name === key);
     }
 
     /**
@@ -189,7 +200,7 @@ export default class Enum {
      * @return {Bool}
      */
     has(v) {
-        return this.store.some(({value}) => value === v);
+        return this.store.some(({ value }) => value === v);
     }
 
     include(v) {

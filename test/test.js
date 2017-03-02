@@ -1,146 +1,148 @@
 /**
  * Created by zhouhua on 2016/12/6.
  */
-/* eslint-disable */
-import {expect} from 'chai';
-import Enum from '../src/enum.js';
+import { expect } from 'chai';
+import Enum from '../src/enum';
 
 let enums;
 let fake;
 
-describe('Constructor', function () {
-    it('construct from objects', function () {
+describe('Constructor', () => {
+    it('construct from objects', () => {
         enums = new Enum(
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         );
         expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
-    it('construct from object array', function () {
+    it('construct from object array', () => {
         enums = new Enum([
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         ]);
         expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
-    it('construct from nested array', function () {
+    it('construct from nested array', () => {
         enums = new Enum([[
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         ]]);
         expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
-    it('construct from values', function () {
+    it('construct from values', () => {
         enums = new Enum('RED', 'GREEN', 'BLUE');
         expect(enums.RED).to.equal('RED');
         expect(enums).to.be.forzen;
     });
-    it('construct from single value(Object)', function () {
-        enums = new Enum({name: 'RED', value: 'red', text: 'Red'});
+    it('construct from single value(Object)', () => {
+        enums = new Enum({ name: 'RED', value: 'red', text: 'Red' });
         expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
-    it('construct from value array', function () {
+    it('construct from value array', () => {
         enums = new Enum(['RED', 'GREEN', 'BLUE']);
         expect(enums.RED).to.equal('RED');
         expect(enums).to.be.forzen;
     });
-    it('construct from key-value', function () {
-        enums = new Enum({RED: 'red', GREEN: 'green', BLUE: 'blue'});
+    it('construct from key-value', () => {
+        enums = new Enum({ RED: 'red', GREEN: 'green', BLUE: 'blue' });
         expect(enums.RED).to.equal('red');
         expect(enums).to.be.forzen;
     });
-    it('construct with chain apis', function () {
+    it('construct with chain apis', () => {
         enums = new Enum();
         expect(enums).to.not.be.forzen;
-        enums.add('RED').add().add(1).add({test: 'test'}).add('GREEN').add('BLUE').end();
+        enums.add('RED').add().add(1).add({ test: 'test' })
+            .add('GREEN')
+            .add('BLUE')
+            .end();
         expect(enums.RED).to.equal('RED');
         expect(enums).to.be.forzen;
     });
 });
 
-describe('Iterable', function () {
-    it('normal case', function () {
+describe('Iterable', () => {
+    it('normal case', () => {
         enums = new Enum(['RED', 'GREEN', 'BLUE']);
         expect(enums.length).to.equal(3);
         expect(enums.count()).to.equal(3);
     });
-    it('normal case', function () {
+    it('normal case', () => {
         enums = new Enum(['RED', 'RED', 'RED']);
         expect(enums.length).to.equal(1);
         expect(enums.count()).to.equal(1);
     });
-    it('iterate with for...in', function () {
+    it('iterate with for...in', () => {
         enums = new Enum(['RED', 'GREEN', 'BLUE']);
-        for (let key in enums) {
+        for (const key of Object.keys(enums)) {
             expect(key).to.be.oneOf(['RED', 'GREEN', 'BLUE']);
         }
     });
-    it('iterate with Object.keys', function () {
+    it('iterate with Object.keys', () => {
         enums = new Enum(['RED', 'GREEN', 'BLUE']);
         expect(Object.keys(enums)).to.be.members(['RED', 'GREEN', 'BLUE']);
-    })
+    });
 });
 
-describe('GETs', function () {
-    beforeEach(function () {
+describe('GETs', () => {
+    beforeEach(() => {
         enums = new Enum(
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         );
     });
-    it('Enum.getValue/Enum.getValueByName', function () {
+    it('Enum.getValue/Enum.getValueByName', () => {
         expect(enums.RED).to.equal('red');
         expect(enums.getValue('RED')).to.equal('red');
         expect(enums.getValueByName('RED')).to.equal('red');
         expect(enums.getValueByName('RED1')).to.be.undefined;
     });
-    it('Enum.get/Enum.getByName', function () {
+    it('Enum.get/Enum.getByName', () => {
         expect(enums.get('RED').value).to.equal('red');
         expect(enums.getByName('RED').value).to.equal('red');
         expect(enums.getByName('RED1')).to.be.undefined;
     });
-    it('Enum.getByValue', function () {
+    it('Enum.getByValue', () => {
         expect(enums.getByValue('red').value).to.equal('red');
         expect(enums.getByValue('red1')).to.be.undefined;
     });
-    it('Enum.getNameByValue', function () {
+    it('Enum.getNameByValue', () => {
         expect(enums.getNameByValue('red')).to.equal('RED');
         expect(enums.getNameByValue('red1')).to.be.undefined;
     });
-    it('Enum.getTextByValue', function () {
+    it('Enum.getTextByValue', () => {
         expect(enums.getTextByValue('red')).to.equal('Red');
         expect(enums.getTextByValue('red1')).to.be.undefined;
     });
-    it('Enum.getTextByName', function () {
+    it('Enum.getTextByName', () => {
         expect(enums.getTextByName('RED')).to.equal('Red');
         expect(enums.getTextByName('RED1')).to.be.undefined;
     });
 });
 
-describe('Checking', function () {
-    beforeEach(function () {
+describe('Checking', () => {
+    beforeEach(() => {
         enums = new Enum(
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         );
     });
-    it('Enums.keys', function () {
+    it('Enums.keys', () => {
         expect(enums.keys()).to.be.members(['RED', 'GREEN', 'BLUE']);
     });
-    it('Enums.hasKey', function () {
+    it('Enums.hasKey', () => {
         expect(enums.hasKey('RED')).to.be.TRUE;
         expect(enums.hasKey('RED1')).to.be.FALSE;
     });
-    it('Enums.has/Enums.include/Enums.contains', function () {
+    it('Enums.has/Enums.include/Enums.contains', () => {
         expect(enums.has('red')).to.be.TRUE;
         expect(enums.has('red1')).to.be.FALSE;
         expect(enums.include('red')).to.be.TRUE;
@@ -150,19 +152,19 @@ describe('Checking', function () {
     });
 });
 
-describe('Making arrays', function () {
-    beforeEach(function () {
+describe('Making arrays', () => {
+    beforeEach(() => {
         enums = new Enum(
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         );
     });
-    it('export all members', function () {
-        let arr = enums.toArray();
+    it('export all members', () => {
+        const arr = enums.toArray();
         expect(arr.length).to.equal(3);
     });
-    it('export particular members', function () {
+    it('export particular members', () => {
         let arr = enums.toArray('RED');
         expect(arr.length).to.equal(1);
         expect(arr[0].text).to.equal('Red');
@@ -170,7 +172,7 @@ describe('Making arrays', function () {
         expect(arr.length).to.equal(1);
         expect(arr[0].text).to.equal('Red');
     });
-    it('export particular members with invalid keys', function () {
+    it('export particular members with invalid keys', () => {
         let arr = enums.toArray('RED', 'RED1');
         expect(arr.length).to.equal(1);
         expect(arr[0].text).to.equal('Red');
@@ -180,16 +182,16 @@ describe('Making arrays', function () {
     });
 });
 
-describe('Secure', function () {
-    beforeEach(function () {
+describe('Secure', () => {
+    beforeEach(() => {
         enums = new Enum(
-            {name: 'RED', value: 'red', text: 'Red'},
-            {name: 'BLUE', value: 'blue', text: 'Blue'},
-            {name: 'GREEN', value: 'green', text: 'Green'}
+            { name: 'RED', value: 'red', text: 'Red' },
+            { name: 'BLUE', value: 'blue', text: 'Blue' },
+            { name: 'GREEN', value: 'green', text: 'Green' }
         );
         fake = 'fake';
     });
-    it('touch enum object', function () {
+    it('touch enum object', () => {
         try {
             enums.RED = fake;
             enums.fake = fake;
@@ -202,8 +204,8 @@ describe('Secure', function () {
             expect(enums.fake).to.be.undefined;
         }
     });
-    it('touch the results from GET apis', function () {
-        let item = enums.get('RED');
+    it('touch the results from GET apis', () => {
+        const item = enums.get('RED');
         try {
             item.value = fake;
         }
@@ -214,23 +216,24 @@ describe('Secure', function () {
             expect(enums.get('RED').value).to.equal('red');
         }
     });
-    it('touch private properties', function () {
+    it('touch private properties', () => {
         try {
-            enums.store.forEach(item => item.value = fake);
+            enums.store.forEach(item => {
+                item.value = fake;
+            });
         }
         catch (e) {
             console.log('should throw an error');
         }
         finally {
             expect(enums.RED).to.equal('red');
-            expect(function () {
-                enums.store.push({name: 'PINK', value: 'pink', text: 'Pink'});
+            expect(() => {
+                enums.store.push({ name: 'PINK', value: 'pink', text: 'Pink' });
             }).to.throw(Error);
-            expect(function () {
+            expect(() => {
                 enums.store.pop();
             }).to.throw(Error);
         }
     });
 });
-
 
