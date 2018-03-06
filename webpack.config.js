@@ -7,7 +7,8 @@ module.exports = {
         filename: 'enum.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'Enum',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        globalObject: 'this'
     },
     module: {
         rules: [{
