@@ -15,7 +15,7 @@ describe('Constructor', () => {
             { name: 'GREEN', value: 'green', text: 'Green' }
         );
         expect(enums.RED).to.equal('red');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct from object array', () => {
         enums = new Enum([
@@ -24,7 +24,7 @@ describe('Constructor', () => {
             { name: 'GREEN', value: 'green', text: 'Green' }
         ]);
         expect(enums.RED).to.equal('red');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct from nested array', () => {
         enums = new Enum([[
@@ -33,37 +33,37 @@ describe('Constructor', () => {
             { name: 'GREEN', value: 'green', text: 'Green' }
         ]]);
         expect(enums.RED).to.equal('red');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct from values', () => {
         enums = new Enum('RED', 'GREEN', 'BLUE');
         expect(enums.RED).to.equal('RED');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct from single value(Object)', () => {
         enums = new Enum({ name: 'RED', value: 'red', text: 'Red' });
         expect(enums.RED).to.equal('red');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct from value array', () => {
         enums = new Enum(['RED', 'GREEN', 'BLUE']);
         expect(enums.RED).to.equal('RED');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct from key-value', () => {
         enums = new Enum({ RED: 'red', GREEN: 'green', BLUE: 'blue' });
         expect(enums.RED).to.equal('red');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
     it('construct with chain apis', () => {
         enums = new Enum();
-        expect(enums).to.not.be.forzen;
+        expect(enums).to.not.be.frozen;
         enums.add('RED').add().add(1).add({ test: 'test' })
             .add('GREEN')
             .add('BLUE')
             .end();
         expect(enums.RED).to.equal('RED');
-        expect(enums).to.be.forzen;
+        expect(enums).to.be.frozen;
     });
 });
 
@@ -139,16 +139,16 @@ describe('Checking', () => {
         expect(enums.keys()).to.be.members(['RED', 'GREEN', 'BLUE']);
     });
     it('Enums.hasKey', () => {
-        expect(enums.hasKey('RED')).to.be.TRUE;
-        expect(enums.hasKey('RED1')).to.be.FALSE;
+        expect(enums.hasKey('RED')).to.be.true;
+        expect(enums.hasKey('RED1')).to.be.false;
     });
     it('Enums.has/Enums.include/Enums.contains', () => {
-        expect(enums.has('red')).to.be.TRUE;
-        expect(enums.has('red1')).to.be.FALSE;
-        expect(enums.include('red')).to.be.TRUE;
-        expect(enums.include('red1')).to.be.FALSE;
-        expect(enums.contain('red')).to.be.TRUE;
-        expect(enums.contain('red1')).to.be.FALSE;
+        expect(enums.has('red')).to.be.true;
+        expect(enums.has('red1')).to.be.false;
+        expect(enums.include('red')).to.be.true;
+        expect(enums.include('red1')).to.be.false;
+        expect(enums.contain('red')).to.be.true;
+        expect(enums.contain('red1')).to.be.false;
     });
 });
 
@@ -236,4 +236,3 @@ describe('Secure', () => {
         }
     });
 });
-

@@ -11,50 +11,133 @@
     "extends": "airbnb-base",
     // check if imports actually resolve
     "settings": {
-        "import/core-modules": ["easy-enum.js"]
+        "import/core-modules": [
+            "easy-enum.js"
+        ]
     },
     // add your custom rules here
     "rules": {
         // don"t require .vue extension when importing
-        "import/extensions": ["error", "always", {
-            "js": "never",
-            "vue": "never"
-        }],
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "never"
+            }
+        ],
         // allow optionalDependencies
-        "import/no-extraneous-dependencies": ["error", {
-            "optionalDependencies": ["test/unit/index.js"]
-        }],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "optionalDependencies": [
+                    "test/unit/index.js"
+                ]
+            }
+        ],
         "no-debugger": 2,
-        "comma-dangle": ["error", "never"],
-        "indent": ["error", 4, {
-            "SwitchCase": 1
-        }],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"],
-        "brace-style": ["error", "stroustrup"],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "brace-style": [
+            "error",
+            "stroustrup"
+        ],
         "global-require": 0,
         "no-param-reassign": 1,
-        "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+        "no-unused-expressions": [
+            "error",
+            {
+                "allowShortCircuit": true,
+                "allowTernary": true
+            }
+        ],
         "no-lonely-if": 2,
-        "prefer-const": ["error", {
-            "destructuring": "any",
-            "ignoreReadBeforeAssign": false
-        }],
-        "no-constant-condition": ["error", { "checkLoops": false }],
-        "quote-props": ["error", "consistent-as-needed"],
-        "prefer-destructuring": ["error", {
-            "array": true,
-            "object": true
-        }, {
-            "enforceForRenamedProperties": false
-        }],
-        "arrow-parens": ["error", "as-needed"],
-        "no-confusing-arrow": ["error", {"allowParens": true}],
-        "curly": ["error", "all"],
-        "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 1 }],
-        "id-length": ["error", {"min": 1, "max": 28, "exceptions": ["i", "j", "k", "u", "_", "$", "t", "r", "l"]}],
+        "prefer-const": [
+            "error",
+            {
+                "destructuring": "any",
+                "ignoreReadBeforeAssign": false
+            }
+        ],
+        "no-constant-condition": [
+            "error",
+            {
+                "checkLoops": false
+            }
+        ],
+        "quote-props": [
+            "error",
+            "consistent-as-needed"
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                "array": true,
+                "object": true
+            },
+            {
+                "enforceForRenamedProperties": false
+            }
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
+        "no-confusing-arrow": [
+            "error",
+            {
+                "allowParens": true
+            }
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxBOF": 0,
+                "maxEOF": 1
+            }
+        ],
+        "id-length": [
+            "error",
+            {
+                "min": 1,
+                "max": 28,
+                "exceptions": [
+                    "i",
+                    "j",
+                    "k",
+                    "u",
+                    "_",
+                    "$",
+                    "t",
+                    "r",
+                    "l"
+                ]
+            }
+        ],
         "no-plusplus": 0,
-        "no-restricted-syntax": [2,
+        "no-restricted-syntax": [
+            2,
             "LabeledStatement",
             "WithStatement"
         ],

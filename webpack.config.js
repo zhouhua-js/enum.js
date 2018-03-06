@@ -1,7 +1,7 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
+    mode: 'production',
     entry: './src/enum.js',
     output: {
         filename: 'enum.js',
@@ -10,20 +10,9 @@ module.exports = {
         libraryTarget: 'umd'
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.js$/,
-            loader: 'babel-loader'
+            use: 'babel-loader'
         }]
-    },
-    devtool: 'cheap-source-map',
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-                drop_console: false
-            },
-            sourceMap: true
-        })
-    ]
-
+    }
 };
